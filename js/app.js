@@ -18,16 +18,12 @@ const megaroster = {
   removeStudent(ev) {
     const btn = ev.target
     const closestToButton = btn.closest('.student')
-    console.log($(closestToButton).attr('data-id'))
-    megaroster.students.splice(closestToButton, 1)
+    for(let i = 0; i < this.students.length; i++){
+      if(this.students[i].id == closestToButton.dataset.id){
+        this.students.splice(i, 1)
+      }
+    }
     closestToButton.remove()
-
-    // Remove it from the this.students array
-    // this.students.splice(?, 1)
-    /*console.log(btn.parentElement.previousElementSibling.textContent)
-    const studentToRemove = btn.parentElement.previousElementSibling.textContent
-    this.remove(this.students, studentToRemove)*/
-    console.log(this.students)
   },
 
   addStudent(ev) {
@@ -42,7 +38,7 @@ const megaroster = {
     const listItem = this.buildListItem(student)
     this.prependChild(this.studentList, listItem)
 
-    this.max ++
+    this.max++
     f.reset()
   },
 
