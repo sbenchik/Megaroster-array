@@ -1,12 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Patua+One');
+
+body{
+  font-family: 'Open Sans'
+}
+
 .template {
   visibility: hidden;
 }
 
 .student {
-  border: 1px solid #ddd;
   height: 4rem;
 }
 
 .actions {
   float: right;
+}
+
+h2{
+  text-align: center;
+  font-family: 'Patua One';
+  font-size: 4rem;
+}
+
+.button{
+  font-size: 1rem;
+}
+
+ul{
+  list-style-type: none;
 }
