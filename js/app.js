@@ -17,13 +17,20 @@ const megaroster = {
 
   removeStudent(ev) {
     const btn = ev.target
-    const closestToButton = btn.closest('.student')
+    const listItem = btn.closest('.student')
     for(let i = 0; i < this.students.length; i++){
-      if(this.students[i].id == closestToButton.dataset.id){
+      if(this.students[i].id == listItem.dataset.id){
         this.students.splice(i, 1)
       }
     }
-    closestToButton.remove()
+    listItem.remove()
+  },
+
+  promoteStudent(ev){
+    const btn = ev.target
+    const listItem = btn.closest('.student')
+    let studentToPromote = listItem.querySelector('span')
+    studentToPromote.style.fontWeight = 'bold'
   },
 
   addStudent(ev) {
@@ -56,6 +63,9 @@ const megaroster = {
     li
       .querySelector('button.remove')
       .addEventListener('click', this.removeStudent.bind(this))
+    li
+      .querySelector('button.success')
+      .addEventListener('click', this.promoteStudent.bind(this))
     return li
   },
 
