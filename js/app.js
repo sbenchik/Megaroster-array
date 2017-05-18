@@ -81,6 +81,21 @@ class Megaroster {
     parent.insertBefore(child, parent.firstChild)
   }
 
+  setupActions(li, student){
+    li
+      .querySelector('button.remove')
+      .addEventListener('click', this.removeStudent.bind(this))
+    li
+      .querySelector('button.success')
+      .addEventListener('click', this.promoteStudent.bind(this, student))
+    li
+      .querySelector('button.move-up')
+      .addEventListener('click', this.moveUp.bind(this, student))
+    li
+      .querySelector('button.move-down')
+      .addEventListener('click', this.moveDown.bind(this, student))
+  }
+
   buildListItem(student) {
     const template = document.querySelector('.student.template')
     const li = template.cloneNode(true)
@@ -92,13 +107,46 @@ class Megaroster {
       li.style.fontWeight = 'bold'
     }
 
-    li
-      .querySelector('button.remove')
-      .addEventListener('click', this.removeStudent.bind(this))
-    li
-      .querySelector('button.success')
-      .addEventListener('click', this.promoteStudent.bind(this, student))
+    this.setupActions(li, student)
     return li
+  }
+
+  moveUp(student, ev){
+    const btn = ev.target
+    const li = btn.closest('.student')
+
+    const index = this.students.findIndex((currentStudent) => {
+      return currentStudent.id === student.id
+    })
+
+    if(index > 0){
+      this.studentList.insertBefore(li, li.previousElementSibling)
+
+      const previousStudent = this.students[index-1]
+      this.students[index-1] = student
+      this.students[index] = previousStudent
+
+      this.save()
+    }
+  }
+
+  moveDown(student, ev){
+    const btn = ev.target
+    const li = btn.closest('.student')
+
+    const index = this.students.findIndex((currentStudent) => {
+      return currentStudent.id === student.id
+    })
+
+    if(index > 0 && index < this.students.length-1){
+      this.studentList.insertBefore(li.nextElementSibling, li)
+
+      const previousStudent = this.students[index+1]
+      this.students[index+1] = student
+      this.students[index] = previousStudent
+
+      this.save()
+    }    
   }
 
   removeClassName(el, className){
