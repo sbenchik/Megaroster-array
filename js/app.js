@@ -1,31 +1,31 @@
 $(document).foundation()
 
-const megaroster = {
-  students: [],
+class Megaroster {
 
-  init(listSelector) {
+  constructor(listSelector) {
     this.studentList = document.querySelector(listSelector)
     this.max = 0
+    this.students = []
     this.setupEventListeners()
     this.load()  
-  },
+  }
 
   setupEventListeners() {
     document
       .querySelector('#new-student')
       .addEventListener('submit', this.handleSubmit.bind(this))
-  },
+  }
 
   save(){
     localStorage.setItem('roster', JSON.stringify(this.students))
-  },
+  }
 
   load(){
     const rosterArray = JSON.parse(localStorage.getItem('roster'))
     rosterArray
       .reverse()
       .map(this.addStudent.bind(this))
-  },
+  }
 
   removeStudent(ev) {
     const btn = ev.target
@@ -38,7 +38,7 @@ const megaroster = {
     }
     this.save()
     listItem.remove()
-  },
+  }
 
   promoteStudent(student, ev){
     const btn = ev.target
@@ -51,7 +51,7 @@ const megaroster = {
       studentToPromote.style.fontWeight = 'normal'
     }
     this.save()
-  },
+  }
 
   handleSubmit(ev){
     ev.preventDefault()
@@ -63,7 +63,7 @@ const megaroster = {
     }
     this.addStudent(student)
     f.reset()
-  },
+  }
 
   addStudent(student) {
     this.students.unshift(student)
@@ -75,11 +75,11 @@ const megaroster = {
       this.max = student.id
     }
     this.save()
-  },
+  }
 
   prependChild(parent, child) {
     parent.insertBefore(child, parent.firstChild)
-  },
+  }
 
   buildListItem(student) {
     const template = document.querySelector('.student.template')
@@ -99,10 +99,11 @@ const megaroster = {
       .querySelector('button.success')
       .addEventListener('click', this.promoteStudent.bind(this, student))
     return li
-  },
+  }
 
   removeClassName(el, className){
     el.className = el.className.replace(className, '').trim()
   }
 }
-megaroster.init('#studentList')
+
+const roster = new Megaroster('#studentList')
