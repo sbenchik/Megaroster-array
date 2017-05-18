@@ -1,18 +1,5 @@
 $(document).foundation()
 
-Array.prototype.move = function(element, offset) {
-  let index = this.indexOf(element);
-  let newIndex = index + offset;
-  
-  if ((newIndex > -1) && (newIndex < this.length)) {
-    // Remove the element from the array
-    let removedElement = this.splice(index, 1)[0];
-  
-    // At "newIndex", remove 0 elements, insert the removed element
-    return this.splice(newIndex, 0, removedElement);
-  }
-};
-
 const megaroster = {
   students: [],
 
@@ -53,11 +40,17 @@ const megaroster = {
     listItem.remove()
   },
 
-  promoteStudent(ev){
+  promoteStudent(student, ev){
     const btn = ev.target
     const listItem = btn.closest('.student')
     let studentToPromote = listItem.querySelector('span')
-    studentToPromote.style.fontWeight = 'bold'
+    student.promoted = !student.promoted
+    if(student.promoted){
+      studentToPromote.style.fontWeight = 'bold'
+    } else {
+      studentToPromote.style.fontWeight = 'normal'
+    }
+    this.save()
   },
 
   handleSubmit(ev){
@@ -66,6 +59,7 @@ const megaroster = {
     const student = {
       id: this.max + 1,
       name: f.studentName.value,
+      promoted: false,
     }
     this.addStudent(student)
     f.reset()
@@ -94,12 +88,16 @@ const megaroster = {
     li.querySelector('.student-name').textContent = student.name
     li.dataset.id = student.id
 
+    if(student.promoted){
+      li.style.fontWeight = 'bold'
+    }
+
     li
       .querySelector('button.remove')
       .addEventListener('click', this.removeStudent.bind(this))
     li
       .querySelector('button.success')
-      .addEventListener('click', this.promoteStudent.bind(this))
+      .addEventListener('click', this.promoteStudent.bind(this, student))
     return li
   },
 

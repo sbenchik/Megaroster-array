@@ -31,3 +31,9 @@ h2{
 .button.success:hover{
   color: #fefefe;
 }
+
+span.student-name{
+  white-space: nowrap;
+  max-width: 100%;
+  overflow-x: hidden;
+}
