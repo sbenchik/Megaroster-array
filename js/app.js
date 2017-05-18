@@ -1,5 +1,18 @@
 $(document).foundation()
 
+Array.prototype.move = function(element, offset) {
+  let index = this.indexOf(element);
+  let newIndex = index + offset;
+  
+  if ((newIndex > -1) && (newIndex < this.length)) {
+    // Remove the element from the array
+    let removedElement = this.splice(index, 1)[0];
+  
+    // At "newIndex", remove 0 elements, insert the removed element
+    return this.splice(newIndex, 0, removedElement);
+  }
+};
+
 const megaroster = {
   students: [],
 
@@ -21,8 +34,10 @@ const megaroster = {
     for(let i = 0; i < this.students.length; i++){
       if(this.students[i].id == listItem.dataset.id){
         this.students.splice(i, 1)
+        break
       }
     }
+    localStorage.setItem('roster', JSON.stringify(this.students))
     listItem.remove()
   },
 
@@ -41,6 +56,7 @@ const megaroster = {
       name: f.studentName.value,
     }
     this.students.unshift(student)
+    localStorage.setItem('roster', JSON.stringify(this.students))
 
     const listItem = this.buildListItem(student)
     this.prependChild(this.studentList, listItem)
