@@ -94,6 +94,9 @@ class Megaroster {
     li
       .querySelector('button.move-down')
       .addEventListener('click', this.moveDown.bind(this, student))
+    li
+      .querySelector('button.edit')
+      .addEventListener('click', this.editName.bind(this, student))
   }
 
   buildListItem(student) {
@@ -147,6 +150,23 @@ class Megaroster {
 
       this.save()
     }    
+  }
+
+  editName(student, ev){
+    const btn = ev.target
+    const name = btn.closest('.student').querySelector('.student-name')
+    if(name.contentEditable === 'inherit' || name.contentEditable === 'false'){
+      name.contentEditable = true
+    } else {
+      name.contentEditable = false
+    }
+
+    const nameToEdit = this.students.find((currentStudent) => {
+      return currentStudent.id === student.id
+    })
+
+    nameToEdit.name = name.textContent
+    this.save()
   }
 
   removeClassName(el, className){

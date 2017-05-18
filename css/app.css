@@ -23,11 +23,11 @@ h2{
   font-size: 4rem;
 }
 
-.button, .button-group, .button.success, .button.alert{
+.button, .button-group, .button.success, .button.alert, .button.warning{
   color: #fefefe;
 }
 
-.button.success:hover, .button.success:focus{
+.button.success:hover, .button.success:focus, .button.warning:hover, .button.warning:focus{
   color: #fefefe;
 }
 
