@@ -26,7 +26,3 @@ h2{
 .button, .button-group, .button.success, .button.alert{
   font-size: 1rem;
 }
-
-ul{
-  list-style-type: none;
-}
