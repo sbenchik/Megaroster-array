@@ -19,13 +19,23 @@ const megaroster = {
   init(listSelector) {
     this.studentList = document.querySelector(listSelector)
     this.max = 0
-    this.setupEventListeners()  
+    this.setupEventListeners()
+    this.load()  
   },
 
   setupEventListeners() {
     document
       .querySelector('#new-student')
-      .addEventListener('submit', this.addStudent.bind(this))
+      .addEventListener('submit', this.handleSubmit.bind(this))
+  },
+
+  save(){
+    localStorage.setItem('roster', JSON.stringify(this.students))
+  },
+
+  load(){
+    const rosterArray = JSON.parse(localStorage.getItem('roster'))
+    rosterArray.map(this.addStudent.bind(this))
   },
 
   removeStudent(ev) {
@@ -37,7 +47,7 @@ const megaroster = {
         break
       }
     }
-    localStorage.setItem('roster', JSON.stringify(this.students))
+    this.save()
     listItem.remove()
   },
 
@@ -48,21 +58,27 @@ const megaroster = {
     studentToPromote.style.fontWeight = 'bold'
   },
 
-  addStudent(ev) {
+  handleSubmit(ev){
     ev.preventDefault()
     const f = ev.target
     const student = {
       id: this.max + 1,
       name: f.studentName.value,
     }
+    this.addStudent(student)
+    f.reset()
+  },
+
+  addStudent(student) {
     this.students.unshift(student)
-    localStorage.setItem('roster', JSON.stringify(this.students))
 
     const listItem = this.buildListItem(student)
     this.prependChild(this.studentList, listItem)
 
-    this.max++
-    f.reset()
+    if(student.id > this.max){
+      this.max = student.id
+    }
+    this.save()
   },
 
   prependChild(parent, child) {
