@@ -23,11 +23,13 @@ h2{
   font-size: 4rem;
 }
 
-.button, .button-group, .button.success, .button.alert, .button.warning{
+.button, .button-group, .button.success, 
+.button.alert, .button.warning{
   color: #fefefe;
 }
 
-.button.success:hover, .button.success:focus, .button.warning:hover, .button.warning:focus{
+.button.success:hover, .button.success:focus, 
+.button.warning:hover, .button.warning:focus{
   color: #fefefe;
 }
 
@@ -36,8 +38,17 @@ span.student-name{
   overflow-x: hidden;
 }
 
-.student:first-child button.move-up, .student:nth-last-child(2) button.move-down{
+.student:first-child button.move-up, 
+.student:nth-last-child(2) button.move-down{
   background-color: grey;
   color: #eee;
   cursor: not-allowed;
+}
+
+.student-name {
+  float: left;
+  line-height: 38px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
