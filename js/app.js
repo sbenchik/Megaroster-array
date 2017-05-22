@@ -153,12 +153,17 @@ class Megaroster {
   }
 
   editName(student, ev){
-    const btn = ev.target
+    const btn = ev.currentTarget
+    const icon = btn.querySelector('i.fa')
     const name = btn.closest('.student').querySelector('.student-name')
     if(name.contentEditable === 'inherit' || name.contentEditable === 'false'){
       name.contentEditable = true
+      icon.classList.remove('fa-pencil')
+      icon.classList.add('fa-check')
     } else {
       name.contentEditable = false
+      icon.classList.remove('fa-check')
+      icon.classList.add('fa-pencil')
     }
 
     const nameToEdit = this.students.find((currentStudent) => {
