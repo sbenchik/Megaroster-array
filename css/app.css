@@ -10,7 +10,9 @@ body{
 }
 
 .student {
+  padding: 0.75rem 1.25rem;
   height: 4rem;
+  transition: .25s;
 }
 
 .actions {
@@ -33,11 +35,6 @@ h2{
   color: #fefefe;
 }
 
-span.student-name{
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-
 .student:first-child button.move-up, 
 .student:nth-last-child(2) button.move-down{
   background-color: grey;
@@ -52,4 +49,9 @@ span.student-name{
   text-overflow: ellipsis;
   white-space: nowrap;
   width: calc(90% - 11.875em);
+}
+
+.promoted {
+  background-color: #FFC656;
+  border-color: #FFC656;
 }

@@ -46,9 +46,9 @@ class Megaroster {
     let studentToPromote = listItem.querySelector('span')
     student.promoted = !student.promoted
     if(student.promoted){
-      studentToPromote.style.fontWeight = 'bold'
+      listItem.classList.add('promoted')
     } else {
-      studentToPromote.style.fontWeight = 'normal'
+      listItem.classList.remove('promoted')
     }
     this.save()
   }
@@ -107,7 +107,7 @@ class Megaroster {
     li.dataset.id = student.id
 
     if(student.promoted){
-      li.style.fontWeight = 'bold'
+      li.classList.add('promoted')
     }
 
     this.setupActions(li, student)
