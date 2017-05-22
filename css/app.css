@@ -51,4 +51,5 @@ span.student-name{
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: calc(90% - 11.875em);
 }
